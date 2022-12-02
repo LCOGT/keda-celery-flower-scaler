@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app.kubernetes.io/component: "api"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "api"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "api"
+    spec:
+      containers:
+        - name: api
+          image: celery-app
+          command:
+            - poetry
+            - run
+            - uvicorn
+            - celery_app.api:app
+            - --port=8000
+            - --reload
+          ports:
+            - name: api
+              containerPort: 8000
+          env:
+            - name: BROKER_SVC_NAME
+              value: replaced
+            - name: CELERY_BROKER_URL
+              value: amqp://$(BROKER_SVC_NAME)//

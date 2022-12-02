@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app.kubernetes.io/component: "api"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "api"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "api"
+    spec:
+      containers:
+        - name: api
+          image: keda-celery-flower-scaler
+          command:
+            - keda-celery-flower-scaler
+            - "--address=:8000"
+          ports:
+            - name: api
+              containerPort: 8000

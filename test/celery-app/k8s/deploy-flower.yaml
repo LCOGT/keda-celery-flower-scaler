@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower
+  labels:
+    app.kubernetes.io/component: "flower"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "flower"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "flower"
+    spec:
+      containers:
+        - name: flower
+          image: mher/flower
+          ports:
+            - name: api
+              containerPort: 8000
+          env:
+            - name: FLOWER_PORT
+              value: "8000"
+            - name: BROKER_SVC_NAME
+              value: replaced
+            - name: CELERY_BROKER_URL
+              value: amqp://$(BROKER_SVC_NAME)//
+            - name: FLOWER_BROKER_API
+              value: http://guest:guest@$(BROKER_SVC_NAME):15672/api/

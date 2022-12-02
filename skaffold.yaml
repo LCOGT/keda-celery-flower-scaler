@@ -1,0 +1,24 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: keda-celery-flower-scaler
+requires:
+  - path: ./test/celery-app
+build:
+  local:
+    push: false
+  artifacts:
+  - image: ghcr.io/lcogt/keda-celery-flower-scaler
+    ko:
+      dependencies:
+        ignore:
+          - test/
+manifests:
+  kustomize:
+    paths:
+    - k8s/
+    - test/k8s
+deploy:
+  kubectl: {}
+  logs:
+    prefix: podAndContainer

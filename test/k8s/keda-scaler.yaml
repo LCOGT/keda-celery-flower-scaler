@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker
+  namespace: test
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: celery-app-worker
+  pollingInterval: 30
+  cooldownPeriod: 30
+  minReplicaCount: 0
+  maxReplicaCount: 50
+  fallback:
+    failureThreshold: 3
+    replicas: 5
+  triggers:
+    - type: external
+      metadata:
+        scalerAddress: keda-celery-flower-scaler-api.default.svc.cluster.local:8000
+        flowerURL: http://celery-app-flower.test.svc.cluster.local:8000

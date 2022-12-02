@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: celery-app
+build:
+  local:
+    push: false
+  artifacts:
+  - image: celery-app
+    docker:
+      dockerfile: Dockerfile
+manifests:
+  kustomize:
+    paths:
+    - k8s/
+deploy:
+  kubectl: {}
+  logs:
+    prefix: podAndContainer
