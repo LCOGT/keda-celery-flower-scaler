@@ -90,7 +90,7 @@ spec:
       # Set this to the number tasks you expect each Worker Pod to consume on average.
       # For example, With CELERY_WORKER_PREFETCH_MULTIPLIER=1 each worker can
       # claim up to 2 tasks (1 runnning & 1 prefetched). With `desiredMetricValue: 2`
-      # `desiredReplias` will be equal to the number of total queued tasks.
+      # `desiredReplias` will be half the number of total queued tasks.
       # Must be greater than or equal to 1. Default: 2
       desiredMetricValue: 2
 
