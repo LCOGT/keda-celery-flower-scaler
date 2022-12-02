@@ -87,10 +87,12 @@ spec:
 
       # This is the scaling factor as described at
       # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details
-      # So with a value of 1, you would end up with a desiredReplicas of 1 Pod per number tasks
-      # pending and running.
-      # Must be greater than or equal to 1. Default: 1
-      desiredMetricValue: 1
+      # Set this to the number tasks you expect each Worker Pod to consume on average.
+      # For example, With CELERY_WORKER_PREFETCH_MULTIPLIER=1 each worker can
+      # claim up to 2 tasks (1 runnning & 1 prefetched). With `desiredMetricValue: 2`
+      # `desiredReplias` will be equal to the number of total queued tasks.
+      # Must be greater than or equal to 1. Default: 2
+      desiredMetricValue: 2
 
       # Minimum number of tasks pending or running to scale the Celery Deployment
       # from 0. For example, a value of 1 will scale it the moment a task is queued.

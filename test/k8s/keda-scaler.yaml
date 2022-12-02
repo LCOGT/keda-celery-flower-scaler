@@ -19,3 +19,5 @@ spec:
       metadata:
         scalerAddress: keda-celery-flower-scaler-api.default.svc.cluster.local:8000
         flowerURL: http://celery-app-flower.test.svc.cluster.local:8000
+        desiredMetricValue: "2"
+        activationThreshold: "1"

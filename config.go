@@ -18,7 +18,7 @@ type Config struct {
 
 func parseConfig(so *pb.ScaledObjectRef) (*Config, error) {
   c := &Config{
-    DesiredMetricValue: 1,
+    DesiredMetricValue: 2,
     ActivationThreshold: 1,
   }
 

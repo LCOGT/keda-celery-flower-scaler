@@ -26,6 +26,8 @@ spec:
             - --loglevel=INFO
             - --concurrency=1
           env:
+            - name: CELERY_WORKER_PREFETCH_MULTIPLIER
+              value: "1"
             - name: BROKER_SVC_NAME
               value: replaced
             - name: CELERY_BROKER_URL
