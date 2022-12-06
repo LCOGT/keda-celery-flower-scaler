@@ -122,7 +122,7 @@ Insall [Keda](https://keda.sh/docs/2.8/deploy/):
 helm upgrade keda keda \
   --install \
   --namespace keda-system \
-  --create-namespace
+  --create-namespace \
   --repo https://kedacore.github.io/charts
 ```
 
